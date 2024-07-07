@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+<head>
+    <meta charset="UTF-8">
+    <title>Téléverser un gif</title>
+</head>
+<body>
+<h1 th:text="'Téléverser un gif sur le ' + ${#numbers.formatInteger(jourCalendrier.jour,2)} + '/' + ${#numbers.formatInteger(jourCalendrier.mois,2)} + '/' + ${jourCalendrier.annee} + ' ( nombre de points : ' + ${jourCalendrier.points} + ' )'"></h1>
+<form action="#" th:action="@{/televerser-gif}" enctype="multipart/form-data" th:object="${televerserGifForm}" method="post">
+  <label for="file">Fichier</label><br>
+  <input th:field="*{file}" type="file" id="file" name="file" />
+
+  <label for="legende">Legende</label><br>
+  <input th:field="*{legende}" type="text" id="legende" name="legende"><br><br>
+
+<div th:each="erreur:${erreurs}">
+    <span th:text="${erreur}"></span>
+</div>
+
+<input type="hidden" name="id" th:field="*{jourCalendrierId}" />
+  <button type="submit">téléverser</button>
+</form>
+
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org" xmlns:form="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Inscription</title>
+</head>
+<body>
+    <h2>Inscription</h2>
+    <form action="#" th:action="@{/inscription}" th:object="${utilisateur}" method="post">
+        <label for="nom">Nom </label><br>
+        <input id="nom" name="nom" th:field="*{nom}" required><br>
+
+        <label for="prenom">Prénom </label><br>
+        <input id="prenom" name="prenom" th:field="*{prenom}" required><br>
+
+        <label for="adresseEmail">Adresse email </label><br>
+        <input type="email" id="adresseEmail" th:field="*{adresseEmail}" name="adresseEmail" required><br>
+
+        <label for="motDePasse">Mot de passe </label><br>
+        <input type="password" id="motDePasse" th:field="*{motDePasse}" name="motDePasse" required><br><br>
+
+        <label for="theme">Thème </label><br>
+        <select id="theme" th:field="*{theme}">
+            <option th:each="theme : ${themes}" th:value="${theme.id}" th:text="${theme.label}"></option>
+        </select>
+
+        <button type="submit">Inscription</button>
+        <a th:href="@{/connexion}">Se connecter</a>
+    </form>
+</body>
+</html>

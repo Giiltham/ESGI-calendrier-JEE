@@ -1,0 +1,9 @@
+package fr.esgi.calendrier_CB_EE.service;
+
+import fr.esgi.calendrier_CB_EE.business.Gif;
+import org.springframework.stereotype.Service;
+
+@Service
+public interface GifService {
+    void ajouterGif(Gif gif);
+}
