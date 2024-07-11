@@ -40,9 +40,9 @@
 <td>
     <div th:if="${jourCalendrier.gif != null}">
         <div th:each="reaction:${jourCalendrier.reactions}">
-            <span th:text="${reaction.emoji.code} + ' ' + ${reaction.utilisateur}"></span>
+            <span th:utext="${reaction.emoji.code} + ' ' + ${reaction.utilisateur.prenom}"></span>
         </div>
-        <a th:href="@{'reagir-gif/' + ${jourCalendrier.gif.id}}">Réagir</a>
+        <a th:href="@{reagir-gif(id=${jourCalendrier.gif.id})}">Réagir</a>
     </div>
 </td>
 </tr>

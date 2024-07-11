@@ -5,7 +5,7 @@ import lombok.Value;
 
 @Value
 public class GifDto {
-    @Pattern(regexp = "^http(s|)://.*\\.gif$", message = "Votre URL doit se terminer par .gif")
+    @Pattern(regexp = "^http(s|)://.*\\.(?i)gif$", message = "Votre URL doit se terminer par .gif")
     private String url;
     private String legende;
 }

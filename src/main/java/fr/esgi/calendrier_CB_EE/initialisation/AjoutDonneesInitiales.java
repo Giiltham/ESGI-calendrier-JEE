@@ -40,10 +40,10 @@ public class AjoutDonneesInitiales implements CommandLineRunner {
 
   private void ajouterEmojis() {
     emojiRepository.save(new Emoji(1L, "1f60a", "Smiley sourire"));
-    emojiRepository.save(new Emoji(1L, "1f92f", "Smiley tête qui explose"));
-    emojiRepository.save(new Emoji(1L, "1f9d0", "Smiley monocle"));
-    emojiRepository.save(new Emoji(1L, "1f979", "Smiley larmes aux yeux"));
-    emojiRepository.save(new Emoji(1L, "2764", "Coeur"));
+    emojiRepository.save(new Emoji(2L, "1f92f", "Smiley tête qui explose"));
+    emojiRepository.save(new Emoji(3L, "1f9d0", "Smiley monocle"));
+    emojiRepository.save(new Emoji(4L, "1f979", "Smiley larmes aux yeux"));
+    emojiRepository.save(new Emoji(5L, "2764", "Coeur"));
   }
 
   private void ajouterThemes() {

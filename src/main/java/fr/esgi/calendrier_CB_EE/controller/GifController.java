@@ -1,11 +1,13 @@
 package fr.esgi.calendrier_CB_EE.controller;
 
+import fr.esgi.calendrier_CB_EE.business.Emoji;
 import fr.esgi.calendrier_CB_EE.business.Gif;
 import fr.esgi.calendrier_CB_EE.business.JourCalendrier;
 import fr.esgi.calendrier_CB_EE.business.Utilisateur;
 import fr.esgi.calendrier_CB_EE.dto.GifDto;
 import fr.esgi.calendrier_CB_EE.forms.TeleverserGifForm;
 import fr.esgi.calendrier_CB_EE.mapper.GifMapper;
+import fr.esgi.calendrier_CB_EE.service.EmojiService;
 import fr.esgi.calendrier_CB_EE.service.GifService;
 import fr.esgi.calendrier_CB_EE.service.JourCalendrierService;
 import jakarta.validation.Valid;
@@ -26,12 +28,15 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
+
 
 @Controller
 @AllArgsConstructor
 public class GifController {
     private JourCalendrierService jourCalendrierService;
+    private EmojiService emojiService;
     private GifService gifService;
     private GifMapper gifMapper;
 
@@ -102,4 +107,32 @@ public class GifController {
 
         return mav;
     }
+
+    @GetMapping({"reagir-gif"})
+    public ModelAndView getReagirGifPage(@RequestParam(value = "id") Long id){
+        ModelAndView mav = new ModelAndView("reagirGif");
+
+        JourCalendrier jourCalendrier = jourCalendrierService.recupererJour(id);
+        mav.addObject("jourCalendrier", jourCalendrier);
+
+        List<Emoji> emojis =  emojiService.recupererEmojis();
+        emojis.forEach(emoji -> {
+            String emojiCharacter = String.format("&#x%s;", emoji.getCode());
+            emoji.setCode(emojiCharacter);
+        });
+        mav.addObject("emojis",emojis);
+
+        return mav;
+    }
+
+    @PostMapping({"reagir-gif"})
+    public ModelAndView postReagirGifPage(@RequestParam(value = "emoji") Long idEmoji, @RequestParam(value = "id") Long idJourCalendrier){
+        ModelAndView mav = new ModelAndView();
+
+        jourCalendrierService.ajouterUneReaction(idJourCalendrier, idEmoji);
+        mav.setViewName("redirect:index");
+
+        return mav;
+    }
+
 }

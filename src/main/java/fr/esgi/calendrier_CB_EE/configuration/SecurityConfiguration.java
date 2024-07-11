@@ -38,7 +38,7 @@ public class SecurityConfiguration  {
 	.requestMatchers("/api/**").authenticated()
 	.requestMatchers("/images/**", "/css/**", "/js/**", "/static/**").permitAll()
 	.requestMatchers("/", "index", "calendrier").authenticated()
-	.requestMatchers("placer-gif-distant", "televerser-gif").authenticated()
+	.requestMatchers("placer-gif-distant", "televerser-gif", "reagir-gif").authenticated()
 	)
 
 	.headers(header -> header.frameOptions(FrameOptionsConfig::disable));

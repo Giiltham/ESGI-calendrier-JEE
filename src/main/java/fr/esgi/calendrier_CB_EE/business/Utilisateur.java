@@ -2,10 +2,12 @@ package fr.esgi.calendrier_CB_EE.business;
 
 import fr.esgi.calendrier_CB_EE.business.Theme;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.validator.constraints.Length;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -28,8 +30,10 @@ public class Utilisateur implements UserDetails {
   private String prenom;
 
   @Column(unique = true)
+  @Pattern(regexp = "^[A-Za-z0-9._%+-]+@esgi\\.fr$", message = "L'email doit appartenir au domaine")
   private String adresseEmail;
 
+  @Length(min = 3, message = "Le mot de passe doit contenir au moins 3 caractères")
   private String motDePasse;
 
   @ManyToOne(optional = false)

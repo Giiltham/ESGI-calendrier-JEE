@@ -1,6 +1,8 @@
 package fr.esgi.calendrier_CB_EE.controller;
 
+import fr.esgi.calendrier_CB_EE.business.Emoji;
 import fr.esgi.calendrier_CB_EE.business.JourCalendrier;
+import fr.esgi.calendrier_CB_EE.business.Reaction;
 import fr.esgi.calendrier_CB_EE.business.Utilisateur;
 import fr.esgi.calendrier_CB_EE.service.JourCalendrierService;
 import lombok.AllArgsConstructor;
@@ -15,13 +17,14 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.data.domain.Page;
 
 import java.util.Iterator;
+import java.util.List;
 
 @Controller
 @AllArgsConstructor
 public class CalendrierController {
     private JourCalendrierService jourCalendrierService;
 
-    @GetMapping({"index", "calendrier"})
+    @GetMapping({"index", "/", "calendrier"})
     public ModelAndView getCalendrierPage(@PageableDefault(size=7, sort={"jour"}) Pageable pageable
                                           ){
 
@@ -34,6 +37,14 @@ public class CalendrierController {
 
         mav.addObject("pageDeJourCalendrier", pageDeJourCalendrier);
 
+
+        for(JourCalendrier jourCalendrier : pageDeJourCalendrier.getContent()){
+            for(Reaction reaction : jourCalendrier.getReactions()){
+                String emojiCharacter = String.format("&#x%s;", reaction.getEmoji().getCode());
+                reaction.getEmoji().setCode(emojiCharacter);
+            }
+        }
+
         Iterator<Sort.Order> iterator = pageable.getSort().iterator();
         StringBuilder sortBuilder = new StringBuilder();
         while (iterator.hasNext()) {
@@ -42,7 +53,6 @@ public class CalendrierController {
             sortBuilder.append(',');
             sortBuilder.append(order.getDirection());
             if (iterator.hasNext()) {
-                // Bricodage
                 sortBuilder.append("&sort=");
             }
         }
