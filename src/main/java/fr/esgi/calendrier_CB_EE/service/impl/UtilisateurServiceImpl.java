@@ -4,7 +4,6 @@ import fr.esgi.calendrier_CB_EE.business.Utilisateur;
 import fr.esgi.calendrier_CB_EE.repository.UtilisateurRepository;
 import fr.esgi.calendrier_CB_EE.service.UtilisateurService;
 import lombok.AllArgsConstructor;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -12,13 +11,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Service
 @AllArgsConstructor
 @Transactional
-public class UtilisateurServiceImpl implements UtilisateurService {
+public class UtilisateurServiceImpl implements UtilisateurService
+{
 
 	private UtilisateurRepository utilisateurRepository;
 	private PasswordEncoder passwordEncoder;

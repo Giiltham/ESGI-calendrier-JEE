@@ -2,7 +2,6 @@ package fr.esgi.calendrier_CB_EE.configuration;
 
 import fr.esgi.calendrier_CB_EE.service.UtilisateurService;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
