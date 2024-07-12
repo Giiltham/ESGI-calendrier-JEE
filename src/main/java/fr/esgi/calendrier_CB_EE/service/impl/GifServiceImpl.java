@@ -15,7 +15,20 @@ public class GifServiceImpl implements GifService {
     private GifRepository gifRepository;
 
     @Override
-    public void ajouterGif(Gif gif){
+    public void ajouterGif(Gif gif)
+    {
         gifRepository.save(gif);
+    }
+
+    @Override
+    public Gif recupererGif(Long id)
+    {
+        return gifRepository.findById(id).get();
+    }
+
+    @Override
+    public void supprimerGif(Long id)
+    {
+        gifRepository.deleteById(id);
     }
 }

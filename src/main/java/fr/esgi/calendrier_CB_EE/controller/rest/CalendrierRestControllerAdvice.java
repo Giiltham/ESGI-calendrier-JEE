@@ -11,7 +11,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestControllerAdvice
-public class CalendrierRestControllerAdvice {
+public class CalendrierRestControllerAdvice
+{
     @ExceptionHandler(ConstraintViolationException.class)
     @ResponseStatus(code = HttpStatus.UNPROCESSABLE_ENTITY)
     public List<String> traiterDonneesInvalidesAvecDetails(ConstraintViolationException exception) {

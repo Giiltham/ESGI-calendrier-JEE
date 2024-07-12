@@ -8,7 +8,7 @@ import org.springframework.util.unit.DataSize;
 
 @Configuration
 public class TeleversementConfiguration {
-	
+
 	@Bean(name="uploadConfig")
 	MultipartConfigElement multipartConfigElement() {
 		MultipartConfigFactory factory = new MultipartConfigFactory();

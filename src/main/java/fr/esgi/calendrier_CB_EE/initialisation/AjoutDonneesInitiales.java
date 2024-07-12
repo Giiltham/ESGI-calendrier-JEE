@@ -4,15 +4,12 @@ package fr.esgi.calendrier_CB_EE.initialisation;
 import fr.esgi.calendrier_CB_EE.business.*;
 import fr.esgi.calendrier_CB_EE.repository.*;
 import lombok.AllArgsConstructor;
-import org.hibernate.type.descriptor.DateTimeUtils;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-import org.thymeleaf.util.DateUtils;
 
 import java.time.Month;
 import java.time.Year;
-import java.time.temporal.Temporal;
 import java.util.Calendar;
 
 @Component
@@ -57,9 +54,10 @@ public class AjoutDonneesInitiales implements CommandLineRunner {
     Year year = Year.of(calendar.get(Calendar.YEAR));
     boolean leapYear = Year.now().isLeap();
 
-    for(long i = 0; i < month.length(leapYear); i++){
+    for(long i = 0; i < month.length(leapYear); i++)
+    {
       jourCalendrierRepository.save(
-              new JourCalendrier(i+1, null, null, null, Math.toIntExact(i)+1, month.getValue(), year.getValue(), 20)
+        new JourCalendrier(i+1, null, null, null, Math.toIntExact(i)+1, month.getValue(), year.getValue(), 20)
       );
     }
   }

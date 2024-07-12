@@ -1,7 +1,5 @@
 package fr.esgi.calendrier_CB_EE.configuration;
 
-import fr.esgi.calendrier_CB_EE.business.Utilisateur;
-import fr.esgi.calendrier_CB_EE.service.ThemeService;
 import fr.esgi.calendrier_CB_EE.service.UtilisateurService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -13,9 +11,9 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @AllArgsConstructor
-public class SecurityConfiguration  {
-    private final UtilisateurService service;
-
+public class SecurityConfiguration
+{
+	private final UtilisateurService service;
 	@Bean
 	SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 	// On peut se connecter sans utiliser https
@@ -38,9 +36,7 @@ public class SecurityConfiguration  {
 	)
 
 	.headers(header -> header.frameOptions(FrameOptionsConfig::disable));
-	return http.build();
+		return http.build();
 	}
-
-
 
 }

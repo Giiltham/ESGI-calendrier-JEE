@@ -11,4 +11,6 @@ public interface UtilisateurService extends UserDetailsService {
     Utilisateur ajouterUtilisateur(Utilisateur utilisateur);
 
     void retirerPoints(int points);
+
+    void supprimerUtilisateur(Utilisateur utilisateur);
 }

@@ -35,7 +35,7 @@ public class UtilisateurServiceImpl implements UtilisateurService {
 		}
 
 		Utilisateur utilisateur = utilisateurRepository.findByAdresseEmail(username);
-		
+
 		if (utilisateur == null) {
 			throw new UsernameNotFoundException("Utilisateur " + username + " introuvable");
 		}
@@ -43,10 +43,11 @@ public class UtilisateurServiceImpl implements UtilisateurService {
 		return utilisateur;
 	}
 
-    private List<GrantedAuthority> getGrantedAuthorities(Utilisateur utilisateur) {
-        List<GrantedAuthority> authorities = new ArrayList<>();
-		return authorities;
-    }
+    // private List<GrantedAuthority> getGrantedAuthorities(Utilisateur utilisateur)
+	// {
+    //     List<GrantedAuthority> authorities = new ArrayList<>();
+	// 	return authorities;
+    // }
 
 	@Override
 	public Utilisateur ajouterUtilisateur(Utilisateur utilisateur) {
@@ -61,6 +62,12 @@ public class UtilisateurServiceImpl implements UtilisateurService {
 		Utilisateur utilisateur = (Utilisateur) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		utilisateur.setPoints(Math.max(0, utilisateur.getPoints() - points));
 		this.utilisateurRepository.save(utilisateur);
+	}
+
+	@Override
+	public void supprimerUtilisateur(Utilisateur utilisateur)
+	{
+		utilisateurRepository.delete(utilisateur);
 	}
 
 }

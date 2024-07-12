@@ -8,16 +8,22 @@ import org.springframework.stereotype.Component;
 
 @Component
 @AllArgsConstructor
-public class StringToThemeConverter implements Converter<String, Theme> {
+public class StringToThemeConverter implements Converter<String, Theme>
+{
 
     private ThemeRepository themeRepository;
 
     @Override
-    public Theme convert(String source) {
+    public Theme convert(@SuppressWarnings("null") String source)
+    {
         Long id = Long.valueOf(source);
-        try {
+
+        try
+        {
             return themeRepository.findById(id).orElse(null);
-        }catch (Exception e){
+        }
+        catch (Exception e)
+        {
             return null;
         }
     }

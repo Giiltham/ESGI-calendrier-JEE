@@ -3,7 +3,6 @@ package fr.esgi.calendrier_CB_EE.controller;
 import fr.esgi.calendrier_CB_EE.business.Emoji;
 import fr.esgi.calendrier_CB_EE.business.Gif;
 import fr.esgi.calendrier_CB_EE.business.JourCalendrier;
-import fr.esgi.calendrier_CB_EE.business.Utilisateur;
 import fr.esgi.calendrier_CB_EE.dto.GifDto;
 import fr.esgi.calendrier_CB_EE.forms.TeleverserGifForm;
 import fr.esgi.calendrier_CB_EE.mapper.GifMapper;
@@ -12,13 +11,11 @@ import fr.esgi.calendrier_CB_EE.service.GifService;
 import fr.esgi.calendrier_CB_EE.service.JourCalendrierService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.io.File;
@@ -35,14 +32,16 @@ import java.util.stream.Collectors;
 
 @Controller
 @AllArgsConstructor
-public class GifController {
+public class GifController
+{
     private JourCalendrierService jourCalendrierService;
     private EmojiService emojiService;
     private GifService gifService;
     private GifMapper gifMapper;
 
     @GetMapping({"placer-gif-distant"})
-    public ModelAndView getPlacerGifDistantPage(@RequestParam(value = "id") Long id){
+    public ModelAndView getPlacerGifDistantPage(@RequestParam(value = "id") Long id)
+    {
         ModelAndView mav = new ModelAndView("placerGifDistant");
 
         JourCalendrier jourCalendrier = jourCalendrierService.recupererJour(id);
@@ -52,7 +51,8 @@ public class GifController {
     }
 
     @GetMapping({"televerser-gif"})
-    public ModelAndView getTeleverserGifPage(@RequestParam(value = "id") Long id){
+    public ModelAndView getTeleverserGifPage(@RequestParam(value = "id") Long id)
+    {
         ModelAndView mav = new ModelAndView("televerserGif");
 
         JourCalendrier jourCalendrier = jourCalendrierService.recupererJour(id);
@@ -61,11 +61,13 @@ public class GifController {
         mav.addObject("jourCalendrier", jourCalendrier);
         mav.addObject("televerserGifForm", televerserGifForm);
         mav.addObject("erreurs", new ArrayList<>());
+
         return mav;
     }
 
     @PostMapping({"televerser-gif"})
-    public ModelAndView postTeleverserGifPage(@ModelAttribute TeleverserGifForm televerserGifForm){
+    public ModelAndView postTeleverserGifPage(@ModelAttribute TeleverserGifForm televerserGifForm)
+    {
         ModelAndView mav = new ModelAndView();
 
         Utilisateur utilisateur = (Utilisateur) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -79,10 +81,14 @@ public class GifController {
         // Le fichier téléversé doit s'écrire dans le dossier src/main/resources/static
         Path chemin = Paths.get("src/main/resources/static/");
         Path cheminFichier;
-        try (InputStream inputStream = televerserGifForm.getFile().getInputStream()) {
+
+        try ( InputStream inputStream = televerserGifForm.getFile().getInputStream() )
+        {
             cheminFichier = File.createTempFile("upload", ".gif", chemin.toFile()).toPath();
             Files.copy(inputStream, cheminFichier, StandardCopyOption.REPLACE_EXISTING);
-        } catch (IOException ioe) {
+        }
+        catch ( IOException ioe )
+        {
             mav = getTeleverserGifPage(televerserGifForm.getJourCalendrierId());
             mav.addObject("erreurs", List.of("Erreur lors de l'upload du fichier !"));
             return mav;
@@ -92,8 +98,8 @@ public class GifController {
         gifService.ajouterGif(gif);
         jourCalendrierService.placerGif(televerserGifForm.getJourCalendrierId(),gif);
         mav.setViewName("redirect:index");
-        return mav;
 
+        return mav;
     }
 
 

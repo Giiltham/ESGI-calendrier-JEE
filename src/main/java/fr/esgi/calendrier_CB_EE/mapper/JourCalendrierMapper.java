@@ -1,6 +1,5 @@
 package fr.esgi.calendrier_CB_EE.mapper;
 
-import fr.esgi.calendrier_CB_EE.business.Gif;
 import fr.esgi.calendrier_CB_EE.business.JourCalendrier;
 import fr.esgi.calendrier_CB_EE.dto.JourCalendrierDto;
 import org.mapstruct.*;
