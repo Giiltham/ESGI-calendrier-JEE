@@ -51,7 +51,7 @@ public class JourCalendrierServiceImpl implements JourCalendrierService {
 
     @Override
     public void ajouterUneReaction(Long idJourCalendrier, Long idEmoji) {
-        Emoji emoji = emojiService.recupererEmoji(idEmoji);
+        Emoji emoji = emojiService.findById(idEmoji);
         JourCalendrier jour = this.recupererJour(idJourCalendrier);
         Utilisateur utilisateur = ((Utilisateur) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         Reaction reaction = new Reaction(null, utilisateur, emoji, jour);

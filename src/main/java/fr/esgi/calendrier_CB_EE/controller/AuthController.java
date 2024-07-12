@@ -33,7 +33,7 @@ public class AuthController {
     public String registerPage(Model model)
     {
         model.addAttribute("utilisateur", new Utilisateur() {});
-        List<Theme> themes = themeService.recupererThemes();
+        List<Theme> themes = themeService.findAll();
         model.addAttribute("themes", themes);
 
         return "inscription";
@@ -47,7 +47,7 @@ public class AuthController {
             mav.addObject("erreurs", bindingResult.getAllErrors().stream()
                     .map(ObjectError::getDefaultMessage)
                     .collect(Collectors.toList()));
-            List<Theme> themes = themeService.recupererThemes();
+            List<Theme> themes = themeService.findAll();
             mav.addObject("themes", themes);
             mav.setViewName("inscription");
             return mav;

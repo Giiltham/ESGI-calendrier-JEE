@@ -7,12 +7,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public interface EmojiService {
-
-    List<Emoji> recupererEmojis();
-
-    Emoji recupererEmoji(Long idEmoji);
-
+public interface EmojiService
+{
     List<Emoji> findAll();
 
     Emoji findById(Long id);

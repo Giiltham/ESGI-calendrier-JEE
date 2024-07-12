@@ -17,12 +17,26 @@ public class EmojiServiceImpl implements EmojiService {
     EmojiRepository emojiRepository;
 
     @Override
-    public List<Emoji> recupererEmojis() {
-        return emojiRepository.findAll();
+    public void delete(Long id)
+    {
+        emojiRepository.deleteById(id);
     }
 
     @Override
-    public Emoji recupererEmoji(Long idEmoji) {
-        return emojiRepository.findById(idEmoji).orElse(null);
+    public void save(Emoji emoji)
+    {
+        emojiRepository.save(emoji);
+    }
+
+    @Override
+    public Emoji findById(Long id)
+    {
+        return emojiRepository.findById(id).get();
+    }
+
+    @Override
+    public List<Emoji> findAll()
+    {
+        return emojiRepository.findAll();
     }
 }

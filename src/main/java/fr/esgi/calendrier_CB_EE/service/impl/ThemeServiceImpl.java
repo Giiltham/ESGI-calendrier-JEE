@@ -12,13 +12,30 @@ import java.util.List;
 @Service
 @Transactional
 @AllArgsConstructor
-public class ThemeServiceImpl implements ThemeService {
-
+public class ThemeServiceImpl implements ThemeService
+{
     private ThemeRepository themeRepository;
 
+    @Override
+    public List<Theme> findAll() {
+        return themeRepository.findAll();
+    }
 
     @Override
-    public List<Theme> recupererThemes() {
-        return themeRepository.findAll();
+    public void delete(Long id)
+    {
+        themeRepository.deleteById(id);
+    }
+
+    @Override
+    public Theme findById(Long id)
+    {
+        return themeRepository.findById(id).get();
+    }
+
+    @Override
+    public void save(Theme theme)
+    {
+        themeRepository.save(theme);
     }
 }

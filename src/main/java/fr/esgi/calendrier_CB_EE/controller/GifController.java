@@ -139,7 +139,7 @@ public class GifController
         JourCalendrier jourCalendrier = jourCalendrierService.recupererJour(id);
         mav.addObject("jourCalendrier", jourCalendrier);
 
-        List<Emoji> emojis =  emojiService.recupererEmojis();
+        List<Emoji> emojis =  emojiService.findAll();
         emojis.forEach(emoji -> {
             String emojiCharacter = String.format("&#x%s;", emoji.getCode());
             emoji.setCode(emojiCharacter);
