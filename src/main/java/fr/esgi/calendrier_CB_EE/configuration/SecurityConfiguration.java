@@ -27,12 +27,13 @@ public class SecurityConfiguration
 	).userDetailsService(service)
 
 	.authorizeHttpRequests(requests ->
-	requests.requestMatchers("/swagger-ui/**").permitAll()
-	.requestMatchers("/connexion", "/inscription").permitAll()
-	.requestMatchers("/api/**").authenticated()
-	.requestMatchers( "/static/**","/public/**").permitAll()
-	.requestMatchers("/", "index", "calendrier").authenticated()
+	requests.
+	requestMatchers("/", "index", "calendrier").authenticated()
 	.requestMatchers("placer-gif-distant", "televerser-gif", "reagir-gif").authenticated()
+	.requestMatchers( "/static/**","/public/**").permitAll()
+	.requestMatchers("/connexion", "/inscription").permitAll()
+	.requestMatchers("/swagger-ui/**").permitAll()
+	.requestMatchers("/api/**").permitAll()
 	)
 
 	.headers(header -> header.frameOptions(FrameOptionsConfig::disable));
