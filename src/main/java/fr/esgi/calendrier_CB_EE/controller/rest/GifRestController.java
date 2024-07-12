@@ -2,6 +2,7 @@ package fr.esgi.calendrier_CB_EE.controller.rest;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,7 +26,10 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class GifRestController
 {
+    @Autowired
     private final GifService gifService;
+
+    @Autowired
     private final GifMapper gifMapper;
 
     @GetMapping("")
@@ -49,7 +53,7 @@ public class GifRestController
 
     @DeleteMapping("/{id}")
     @Operation(summary = "Delete gif by id")
-    public void deleteGif(@PathVariable Long id) {
+    public void deleteGif(@PathVariable(value = "id") Long id) {
         gifService.delete(id);
     }
 }
