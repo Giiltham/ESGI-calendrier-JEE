@@ -3,6 +3,7 @@ package fr.esgi.calendrier_CB_EE.controller;
 import fr.esgi.calendrier_CB_EE.business.Emoji;
 import fr.esgi.calendrier_CB_EE.business.Gif;
 import fr.esgi.calendrier_CB_EE.business.JourCalendrier;
+import fr.esgi.calendrier_CB_EE.business.Utilisateur;
 import fr.esgi.calendrier_CB_EE.dto.GifDto;
 import fr.esgi.calendrier_CB_EE.forms.TeleverserGifForm;
 import fr.esgi.calendrier_CB_EE.mapper.GifMapper;
@@ -11,6 +12,8 @@ import fr.esgi.calendrier_CB_EE.service.GifService;
 import fr.esgi.calendrier_CB_EE.service.JourCalendrierService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -95,7 +98,7 @@ public class GifController
         }
 
         Gif gif = gifMapper.toEntity(new GifDto("/public/" + cheminFichier.getFileName().toString(),televerserGifForm.getLegende()));
-        gifService.ajouterGif(gif);
+        gifService.save(gif);
         jourCalendrierService.placerGif(televerserGifForm.getJourCalendrierId(),gif);
         mav.setViewName("redirect:index");
 
@@ -122,7 +125,7 @@ public class GifController
         }
 
         Gif gif = gifMapper.toEntity(gifDto);
-        gifService.ajouterGif(gif);
+        gifService.save(gif);
         jourCalendrierService.placerGif(id,gif);
         mav.setViewName("redirect:index");
 

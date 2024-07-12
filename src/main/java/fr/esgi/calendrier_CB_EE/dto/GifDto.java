@@ -8,4 +8,5 @@ public class GifDto {
     @Pattern(regexp = "^http(s|)://.*\\.(?i)gif$", message = "Votre URL doit se terminer par .gif")
     private String url;
     private String legende;
+
 }

@@ -21,4 +21,5 @@ public class Gif {
 
     private String url;
     private String legende;
+
 }

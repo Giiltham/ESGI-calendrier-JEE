@@ -1,11 +1,15 @@
 package fr.esgi.calendrier_CB_EE.service;
 
 import fr.esgi.calendrier_CB_EE.business.Gif;
+
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 @Service
 public interface GifService {
-    void ajouterGif(Gif gif);
-    Gif recupererGif(Long id);
-    void supprimerGif(Long id);
+    void delete(Long id);
+    List<Gif> findAll();
+    Gif findById(Long id);
+    void save(Gif entity);
 }
