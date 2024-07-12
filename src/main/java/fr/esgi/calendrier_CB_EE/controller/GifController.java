@@ -16,6 +16,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -67,6 +68,14 @@ public class GifController {
     public ModelAndView postTeleverserGifPage(@ModelAttribute TeleverserGifForm televerserGifForm){
         ModelAndView mav = new ModelAndView();
 
+        Utilisateur utilisateur = (Utilisateur) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        if(utilisateur.getPoints() - 20 < 0){
+            mav = getTeleverserGifPage(televerserGifForm.getJourCalendrierId());
+            mav.addObject("erreurs", List.of("Pas assez de points !"));
+            return mav;
+        }
+
         // Le fichier téléversé doit s'écrire dans le dossier src/main/resources/static
         Path chemin = Paths.get("src/main/resources/static/");
         Path cheminFichier;
@@ -75,11 +84,11 @@ public class GifController {
             Files.copy(inputStream, cheminFichier, StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException ioe) {
             mav = getTeleverserGifPage(televerserGifForm.getJourCalendrierId());
-            mav.setViewName("televerserGif");
+            mav.addObject("erreurs", List.of("Erreur lors de l'upload du fichier !"));
             return mav;
         }
 
-        Gif gif = gifMapper.toEntity(new GifDto(cheminFichier.getFileName().toString(),televerserGifForm.getLegende()));
+        Gif gif = gifMapper.toEntity(new GifDto("/public/" + cheminFichier.getFileName().toString(),televerserGifForm.getLegende()));
         gifService.ajouterGif(gif);
         jourCalendrierService.placerGif(televerserGifForm.getJourCalendrierId(),gif);
         mav.setViewName("redirect:index");
@@ -92,10 +101,16 @@ public class GifController {
     public ModelAndView postPlacerGifDistantPage(@ModelAttribute @Valid GifDto gifDto, BindingResult bindingResult, @RequestParam(value = "id") Long id){
         ModelAndView mav = new ModelAndView();
 
+        Utilisateur utilisateur = (Utilisateur) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        if(utilisateur.getPoints() - 20 < 0){
+            bindingResult.addError(new ObjectError(bindingResult.getObjectName(), "Pas assez de points !"));
+        }
+
         if (bindingResult.hasErrors()) {
             mav = this.getPlacerGifDistantPage(id);
-            mav.addObject("erreurs", bindingResult.getFieldErrors().stream()
-                    .map(FieldError::getDefaultMessage)
+            mav.addObject("erreurs", bindingResult.getAllErrors().stream()
+                    .map(ObjectError::getDefaultMessage)
                     .collect(Collectors.toList()));
             return mav;
         }

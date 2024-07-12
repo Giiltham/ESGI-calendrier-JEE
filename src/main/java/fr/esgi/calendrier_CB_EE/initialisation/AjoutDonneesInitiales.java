@@ -35,7 +35,7 @@ public class AjoutDonneesInitiales implements CommandLineRunner {
   }
 
   private void ajouterUtilisateur() {
-    utilisateurRepository.save(new Utilisateur(1L, "Brunet", "Cédric","a@gmail.com", passwordEncoder.encode("a"), themeRepository.findAll().get(0), 500));
+    utilisateurRepository.save(new Utilisateur(1L, "Brunet", "Cédric","a@esgi.fr", passwordEncoder.encode("a"), themeRepository.findAll().get(0), 500));
   }
 
   private void ajouterEmojis() {

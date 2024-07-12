@@ -9,18 +9,17 @@
 <h1 th:text="'Téléverser un gif sur le ' + ${#numbers.formatInteger(jourCalendrier.jour,2)} + '/' + ${#numbers.formatInteger(jourCalendrier.mois,2)} + '/' + ${jourCalendrier.annee} + ' ( nombre de points : ' + ${jourCalendrier.points} + ' )'"></h1>
 <form action="#" th:action="@{/televerser-gif}" enctype="multipart/form-data" th:object="${televerserGifForm}" method="post">
   <label for="file">Fichier</label><br>
-  <input th:field="*{file}" type="file" id="file" name="file" />
-
+  <input th:field="*{file}" type="file" id="file" name="file" /><br>
   <label for="legende">Legende</label><br>
   <input th:field="*{legende}" type="text" id="legende" name="legende"><br><br>
 
 <div th:each="erreur:${erreurs}">
-    <span th:text="${erreur}"></span>
+    <span th:text="${erreur}"></span><br>
 </div>
-
 <input type="hidden" name="id" th:field="*{jourCalendrierId}" />
-  <button type="submit">téléverser</button>
+<button type="submit">téléverser</button>
 </form>
+<a th:href="@{'/index'}">Retour</a>
 
 </body>
 </html>

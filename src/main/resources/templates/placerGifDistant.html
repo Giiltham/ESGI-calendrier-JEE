@@ -15,12 +15,15 @@
   <input type="text" id="legende" name="legende"><br><br>
 
 <div th:each="erreur:${erreurs}">
-    <span th:text="${erreur}"></span>
+    <span th:text="${erreur}"></span><br>
 </div>
 
 <input type="hidden" name="id" th:value="${jourCalendrier.id}" />
   <button type="submit">Placer</button>
 </form>
+
+<a th:href="@{'/index'}">Retour</a>
+
 
 </body>
 </html>
