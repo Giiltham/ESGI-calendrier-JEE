@@ -56,7 +56,7 @@ public class JourCalendrierServiceImpl implements JourCalendrierService {
         Utilisateur utilisateur = ((Utilisateur) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         Reaction reaction = new Reaction(null, utilisateur, emoji, jour);
 
-        reactionService.ajouterReaction(reaction);
+        reactionService.save(reaction);
 
         List<Reaction> reactions = jour.getReactions();
         reactions.add(reaction);
